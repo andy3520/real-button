@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Button from "./components/button/Button";
 
 function App() {
+  const [counter, setCounter] = useState(
+    () => +localStorage.getItem("counter") || 0
+  );
+
+  const onClick = () => {
+    setCounter((counter) => {
+      counter++;
+      localStorage.setItem("counter", counter);
+      return counter;
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 min-w-screen">
+      <Button onClick={onClick}></Button>
+      <h1
+        className="text-gray-600"
+        style={{
+          fontSize: "7vw",
+        }}
+      >
+        Button clicked: {counter}
+      </h1>
     </div>
   );
 }
