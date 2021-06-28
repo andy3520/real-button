@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Button from "./components/button/Button";
+import clickSound from "./assets/click.mp3";
 
 function App() {
+  const audioClick = new Audio(clickSound);
   const [counter, setCounter] = useState(
     () => +localStorage.getItem("counter") || 0
   );
 
   const onClick = () => {
+    audioClick.play();
     setCounter((counter) => {
       counter++;
       localStorage.setItem("counter", counter);
